@@ -1,0 +1,8 @@
+.custom-input::placeholder {
+    color: white; /* Placeholder rengini beyaz yapar */
+  }
+  
+  .custom-input {
+    color: white; /* Girilen metnin rengini de beyaz yapar */
+  }
+  
