@@ -1,270 +1,153 @@
 import React, { useState } from 'react';
-import { 
-  Tabs, Card, Button, Space, Tag, Row, Col, Typography, Modal, Form, 
-  Input, Select, TimePicker, InputNumber, Timeline, Divider 
-} from 'antd';
-import { 
-  PlusOutlined, ClockCircleOutlined, EnvironmentOutlined, 
-  UserOutlined, DeleteOutlined 
-} from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
+import { Tabs, Card, Space, Tag, Row, Col, Typography, Timeline, Divider, Button } from 'antd';
+import { PlusOutlined, UserOutlined, ArrowLeftOutlined } from '@ant-design/icons';
 
-const { Title, Text } = Typography;
-const { TextArea } = Input;
+const { Text } = Typography;
 
 const RoutesPage = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [form] = Form.useForm();
+  const navigate = useNavigate();
 
   const categories = [
-    { key: 'historical', label: 'Tarih', color: '#fadb14' },
-    { key: 'food', label: 'Yemek', color: '#ff4d4f' },
-    { key: 'shopping', label: 'Alışveriş', color: '#1890ff' },
-    { key: 'nature', label: 'Doğa', color: '#52c41a' },
-    { key: 'activities', label: 'Etkinlik', color: '#722ed1' }
+    { key: 'historical', label: 'Tarih Rotası', color: '#B99470' },
+    { key: 'food', label: 'Yemek Rotası', color: '#825B32' },
+    { key: 'shopping', label: 'Alışveriş Rotası', color: '#6C4E31' },
+    { key: 'nature', label: 'Doğa Rotası', color: '#603F26' },
+    { key: 'activities', label: 'Etkinlik Rotası', color: '#321E1E' }
   ];
 
-  const [routes, setRoutes] = useState([
+  const [routes] = useState([
     {
       title: "Tarihi Edirne Turu",
-      author: "Hatice K.",
+      author: "Sizin İçin Önerimiz",
       category: "historical",
-      duration: "6 saat",
       description: "Edirne'nin tarihî yerlerini keşfedin",
       places: [
-        { name: "Selimiye Camii", duration: 90, description: "UNESCO Dünya Mirası" },
-        { name: "Üç Şerefeli Cami", duration: 45, description: "15. yüzyıldan kalma cami" },
-        { name: "Eski Cami", duration: 45, description: "Edirne'nin en eski camisi" }
+        { name: "Selimiye Camii", description: "UNESCO Dünya Mirası" },
+        { name: "Üç Şerefeli Cami", description: "15. yüzyıldan kalma cami" },
+        { name: "Eski Cami", description: "Edirne'nin en eski camisi" }
       ]
     },
     {
       title: "Lezzet Rotası",
-      author: "Enis Semerci.",
+      author: "Sizin İçin Önerimiz",
       category: "food",
-      duration: "4 saat",
       description: "Edirne'nin meşhur lezzetlerini tadın",
       places: [
-        { name: "Ciğerci Niyazi", duration: 60, description: "Meşhur tava ciğer" },
-        { name: "Köfteci Osman", duration: 60, description: "Edirne köftesi" },
-        { name: "Tarihi Badem Ezmecisi", duration: 30, description: "Tatlı molası" }
+        { name: "Ciğerci Niyazi", description: "Meşhur tava ciğer" },
+        { name: "Köfteci Osman", description: "Edirne köftesi" },
+        { name: "Tarihi Badem Ezmecisi", description: "Tatlı molası" }
       ]
     }
   ]);
 
-  const handleCreateRoute = (values) => {
-    const totalDuration = values.places.reduce((sum, place) => sum + place.duration, 0);
-    const newRoute = {
-      ...values,
-      author: "Kullanıcı", // Normalde giriş yapan kullanıcının adı gelecek
-      duration: `${Math.round(totalDuration / 60)} saat ${totalDuration % 60} dakika`
-    };
-
-    setRoutes([...routes, newRoute]);
-    setIsModalOpen(false);
-    form.resetFields();
-  };
-
-  const items = categories.map(category => ({
-    key: category.key,
-    label: (
-      <Space>
-        <Tag color={category.color}>{category.label}</Tag>
-      </Space>
-    ),
-    children: (
-      <Row gutter={[16, 16]}>
-        {routes
-          .filter(route => route.category === category.key)
-          .map((route, index) => (
+  const items = categories.map((category) => {
+    const filteredRoutes = routes.filter(route => route.category === category.key);
+    return {
+      key: category.key,
+      label: (
+        <div style={{ marginRight: '100px' }}>
+          <Tag color={category.color}>{category.label}</Tag>
+        </div>
+      ),
+      children: (
+        <Row gutter={[16, 16]}>
+          {filteredRoutes.map((route, index) => (
             <Col xs={24} sm={12} lg={8} key={index}>
-              <Card
-                hoverable
-                style={{ height: '100%' }}
-                actions={[
-                  <Button type="link" key="details">Detayları Gör</Button>
-                ]}
-              >
+              <Card hoverable style={{ height: '100%' }}>
                 <Card.Meta
                   title={route.title}
                   description={
-                    <Space direction="vertical" size="small" style={{ width: '100%' }}>
+                    <Space direction="vertical" size="small">
                       <Space>
                         <UserOutlined />
                         <Text type="secondary">{route.author}</Text>
                       </Space>
-                      <Space>
-                        <ClockCircleOutlined />
-                        <Text type="secondary">{route.duration}</Text>
-                      </Space>
                       <Divider style={{ margin: '8px 0' }} />
-                      <Timeline
-                        items={route.places.map(place => ({
-                          children: (
-                            <div>
-                              <Text strong>{place.name}</Text>
-                              <br />
-                              <Text type="secondary">{place.description}</Text>
-                            </div>
-                          )
-                        }))}
-                      />
+                      <Timeline>
+                        {route.places.map((place, idx) => (
+                          <Timeline.Item key={idx}>
+                            <Text strong>{place.name}</Text>
+                            <br />
+                            <Text type="secondary">{place.description}</Text>
+                          </Timeline.Item>
+                        ))}
+                      </Timeline>
                     </Space>
                   }
                 />
               </Card>
             </Col>
           ))}
-      </Row>
-    )
-  }));
+        </Row>
+      )
+    };
+  });
 
   return (
-    <div style={{ padding: 24 }}>
-      <Row justify="space-between" align="middle" style={{ marginBottom: 24 }}>
-        <Title level={2}>Edirne Gezi Rotaları</Title>
-        <Button 
-          type="primary" 
+    <div style={{ display: 'flex', position: 'relative' }}>
+      <div style={{ position: 'absolute', top: 20, left: 20 }}>
+      <Button
+  type="default"
+  icon={<ArrowLeftOutlined />}
+  onClick={() => navigate('/')}
+  style={{
+    backgroundColor: '#3C2A21', // Doğru yazım
+    color: 'white', // Yazı rengi beyaz olarak ayarlandı
+    fontSize: '16px',
+    padding: '8px 16px',
+    marginBottom: '16px', // Geri butonu ile Yeni Rota Oluştur arasına boşluk
+    borderColor: '#3C2A21', // Dış çizgi rengini de aynı renk yapıyoruz
+  }}
+>
+  Geri
+</Button>
+        <Button
+          type="primary"
           icon={<PlusOutlined />}
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => navigate('/new-routes')}
+          style={{
+            backgroundColor: '#AB886D',
+            borderColor: '#AB886D',
+            color: 'white',
+            fontSize: '16px',
+            padding: '8px 16px',
+            marginTop: '10px', // Butonu biraz aşağıya almak için
+            marginLeft: '50px'
+          }}
         >
           Yeni Rota Oluştur
         </Button>
-      </Row>
+        <div style={{ marginTop: 25, position: 'relative', width: '325px', height: '285px' }}>
+          <video
+            loop
+            autoPlay
+            muted
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover',
+              borderRadius: '8px',
+              boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
+            }}
+          >
+            <source src="./newroutes.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
 
-      <Tabs
-        defaultActiveKey="historical"
-        items={items}
-        type="card"
-        size="large"
-        style={{ marginBottom: 24 }}
-      />
-
-      <Modal
-        title="Yeni Rota Oluştur"
-        open={isModalOpen}
-        onCancel={() => setIsModalOpen(false)}
-        footer={null}
-        width={800}
-      >
-        <Form
-          form={form}
-          layout="vertical"
-          onFinish={handleCreateRoute}
-          initialValues={{
-            places: [{ name: '', duration: 30, description: '' }]
+      <div style={{ marginLeft: 380, marginTop: 15, width: '100%' }}>
+        <Tabs
+          defaultActiveKey="historical"
+          items={items}
+          type="card"
+          size="large"
+          style={{ marginBottom: 254 }}
+          tabBarStyle={{
+            paddingLeft: '10px',
           }}
-        >
-          <Form.Item
-            name="title"
-            label="Rota Başlığı"
-            rules={[{ required: true, message: 'Lütfen rota başlığı girin' }]}
-          >
-            <Input />
-          </Form.Item>
-
-          <Form.Item
-            name="category"
-            label="Kategori"
-            rules={[{ required: true, message: 'Lütfen kategori seçin' }]}
-          >
-            <Select>
-              {categories.map(cat => (
-                <Select.Option key={cat.key} value={cat.key}>
-                  {cat.label}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
-
-          <Form.Item
-            name="description"
-            label="Rota Açıklaması"
-            rules={[{ required: true, message: 'Lütfen rota açıklaması girin' }]}
-          >
-            <TextArea rows={4} />
-          </Form.Item>
-
-          <Divider orientation="left">Rota Yerleri</Divider>
-
-          <Form.List
-            name="places"
-            rules={[{
-              validator: async (_, places) => {
-                if (!places || places.length < 2) {
-                  return Promise.reject(new Error('En az 2 yer eklemelisiniz'));
-                }
-              },
-            }]}
-          >
-            {(fields, { add, remove }) => (
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {fields.map((field, index) => (
-                  <Card
-                    key={field.key}
-                    size="small"
-                    title={`${index + 1}. Yer`}
-                    extra={
-                      fields.length > 1 && (
-                        <Button 
-                          type="text" 
-                          danger 
-                          icon={<DeleteOutlined />} 
-                          onClick={() => remove(field.name)}
-                        />
-                      )
-                    }
-                  >
-                    <Row gutter={16}>
-                      <Col span={12}>
-                        <Form.Item
-                          {...field}
-                          name={[field.name, 'name']}
-                          rules={[{ required: true, message: 'Yer adı gerekli' }]}
-                        >
-                          <Input placeholder="Yer Adı" />
-                        </Form.Item>
-                      </Col>
-                      <Col span={12}>
-                        <Form.Item
-                          {...field}
-                          name={[field.name, 'duration']}
-                          label="Süre (dakika)"
-                          rules={[{ required: true, message: 'Süre gerekli' }]}
-                        >
-                          <InputNumber min={1} max={480} style={{ width: '100%' }} />
-                        </Form.Item>
-                      </Col>
-                      <Col span={24}>
-                        <Form.Item
-                          {...field}
-                          name={[field.name, 'description']}
-                          rules={[{ required: true, message: 'Açıklama gerekli' }]}
-                        >
-                          <TextArea placeholder="Yer hakkında kısa açıklama" rows={2} />
-                        </Form.Item>
-                      </Col>
-                    </Row>
-                  </Card>
-                ))}
-                
-                <Button 
-                  type="dashed" 
-                  onClick={() => add()} 
-                  icon={<PlusOutlined />}
-                  style={{ width: '100%' }}
-                >
-                  Yeni Yer Ekle
-                </Button>
-              </div>
-            )}
-          </Form.List>
-
-          <Form.Item style={{ marginTop: 24 }}>
-            <Button type="primary" htmlType="submit" block>
-              Rotayı Oluştur
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
+        />
+      </div>
     </div>
   );
 };

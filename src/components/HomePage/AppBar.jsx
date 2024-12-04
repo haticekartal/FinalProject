@@ -1,25 +1,36 @@
-import React from 'react';
-import { Layout, Button } from 'antd';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Avatar } from 'antd';
 
-const { Header } = Layout;
+const AppBar = () => {
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userInfo, setUserInfo] = useState({ name: '', avatar: '' });
 
-function AppBar() {
-  const navigate = useNavigate(); 
+  useEffect(() => {
+    const loggedInStatus = localStorage.getItem('isLoggedIn') === 'true';
+    setIsLoggedIn(loggedInStatus);
+
+    if (loggedInStatus) {
+      const name = localStorage.getItem('username');
+      const avatar = localStorage.getItem('avatar');
+      setUserInfo({ name, avatar });
+    }
+  }, []);
 
   const handleButtonClick = (index) => {
     switch (index) {
       case 0:
-        navigate('/'); 
+        navigate('/');
         break;
       case 1:
-        navigate('/routes'); 
+        navigate('/our-routes');
         break;
       case 2:
-        navigate('/about'); 
+        navigate('/about');
         break;
       case 3:
-        navigate('/login'); 
+        navigate('/login');
         break;
       case 4:
         navigate('/signup');
@@ -29,26 +40,54 @@ function AppBar() {
     }
   };
 
+  const handleLogout = () => {
+    localStorage.removeItem('isLoggedIn');
+    localStorage.removeItem('username');
+    localStorage.removeItem('avatar');
+    setIsLoggedIn(false);
+    navigate('/');
+  };
+
+  const handleAdminClick = () => {
+    navigate('/admin-panel');
+  };
+
   return (
-    <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#FFFFFF', height: '75px', width: '100vw', paddingTop: '20px' }}>
-      <div className="logo">
-        {/* Adjusted marginTop to move the logo down */}
-        <img src="/logo.png" alt="Logo" style={{ height: '400px', width: '400px', marginTop: '40px' }} />
+    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#FFFFFF' }}>
+      <div>
+        <img src="/logo1.png" alt="Logo" style={{ height: '90px', marginLeft:'10px' }} />
       </div>
-      <div className="buttons">
-        {['Anasayfa', 'Gezi Rotalarımız', 'Biz Kimiz?', 'Giriş Yap', 'Kayıt Ol'].map((name, index) => (
-          <Button
-            key={index}
-            shape="round"
-            onClick={() => handleButtonClick(index)} 
-            style={{ marginLeft: '10px', backgroundColor: '#b4835b', color: 'white', borderColor: '#b4835b' }}
-          >
-            {name}
-          </Button>
-        ))}
+      <div style={{ display: 'flex', alignItems: 'center', flexGrow: 1, justifyContent: 'flex-end' }}>
+        <button onClick={() => handleButtonClick(0)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#714a38', color: 'white' }}>Anasayfa</button>
+        <button onClick={() => handleButtonClick(1)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#714a38', color: 'white' }}>Gezi Rotalarımız</button>
+        <button onClick={() => handleButtonClick(2)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#714a38', color: 'white' }}>Biz Kimiz?</button>
+        {isLoggedIn ? (
+          <div style={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
+            <button onClick={handleLogout} style={{ marginLeft: '10px', padding: '5px 10px', borderRadius: '5px', backgroundColor: '#714a38', color: 'white' }}>Çıkış Yap</button>
+            <Avatar src={userInfo.avatar} alt="Avatar" style={{ marginLeft: '15px' }} />
+            <button 
+              onClick={handleAdminClick} 
+              style={{ 
+                marginLeft: '2px', 
+                background: 'none', 
+                border: 'none', 
+                color: '#000', 
+                textDecoration: 'underline', 
+                cursor: 'pointer', 
+                marginRight: '9px'
+              }}>
+              {userInfo.name}
+            </button>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <button onClick={() => handleButtonClick(3)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#5d2008', color: 'white' }}>Giriş Yap</button>
+            <button onClick={() => handleButtonClick(4)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#5d2008', color: 'white' }}>Kayıt Ol</button>
+          </div>
+        )}
       </div>
-    </Header>
+    </div>
   );
-}
+};
 
 export default AppBar;
