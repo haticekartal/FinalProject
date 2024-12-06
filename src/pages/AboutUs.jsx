@@ -22,9 +22,8 @@ const AboutUs = () => {
           Geri
         </Button>
 
-        <h1 style={{ fontFamily: 'Lobster, sans-serif', marginLeft:'100px' }}>HAKKIMIZDA</h1>
+        <h1>HAKKIMIZDA</h1>
 
-        
         {/* Profil 1 */}
         <div className="profile">
           <img src="./about1.png" alt="Profil 1" className="profile-image" />
@@ -36,7 +35,9 @@ const AboutUs = () => {
               <a href="https://medium.com/@kartal_hatice">Medium Profili</a>
             </div>
           </div>
-          <div style={{maxWidth:'300px', marginLeft:'20px', marginTop:'50px'}}>Trakya Üniversitesi Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Bu projede frontend tarafını geliştirmekten sorumluyum. Web tasarımı, kullanıcı deneyimi ve site işlevselliğini geliştirmek için React, Ant Design gibi teknolojilerle çalışıyorum. Amacım, Edirne'nin tarihi ve kültürel zenginliklerini tanıtan, kullanıcı dostu ve görsel olarak çekici bir web sitesi oluşturmak. Bu projede frontend tarafında kullanıcıların kolayca gezilecek yerleri keşfetmelerini sağlayacak işlevsellikler eklemeye odaklandım.</div>
+          <div className="profile-description">
+            Trakya Üniversitesi Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Bu projede frontend tarafını geliştirmekten sorumluyum. Web tasarımı, kullanıcı deneyimi ve site işlevselliğini geliştirmek için React, Ant Design gibi teknolojilerle çalışıyorum. Amacım, Edirne'nin tarihi ve kültürel zenginliklerini tanıtan, kullanıcı dostu ve görsel olarak çekici bir web sitesi oluşturmak.
+          </div>
         </div>
 
         {/* Profil 2 */}
@@ -50,7 +51,9 @@ const AboutUs = () => {
               <a href="https://medium.com/@kartal_hatice">Medium Profili</a>
             </div>
           </div>
-          <div style={{maxWidth:'300px', marginLeft:'20px', marginTop:'50px'}}>Trakya Üniversitesi Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Bu projede backend tarafını geliştirmekle sorumluyum. Proje, Edirne'deki gezilecek yerleri tanıtan bir web sitesi olmayı amaçlıyor. Benim görevim, kullanıcıların seçimlerine göre dinamik olarak rota oluşturulmasını sağlayan sistemin altyapısını kurmak ve veritabanı entegrasyonunu sağlamak. Backend tarafında doğru teknolojiler kullanarak, tüm verilerin doğru ve güvenli bir şekilde işlenmesini sağlıyorum.</div>
+          <div className="profile-description">
+            Trakya Üniversitesi Bilgisayar Mühendisliği 4. sınıf öğrencisiyim. Bu projede backend tarafını geliştirmekle sorumluyum. Proje, Edirne'deki gezilecek yerleri tanıtan bir web sitesi olmayı amaçlıyor. Benim görevim, kullanıcıların seçimlerine göre dinamik olarak rota oluşturulmasını sağlayan sistemin altyapısını kurmak ve veritabanı entegrasyonunu sağlamak.
+          </div>
         </div>
       </div>
 

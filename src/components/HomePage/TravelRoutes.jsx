@@ -6,17 +6,30 @@ const TravelRoutes = () => {
   return (
     <section className="travel-routes">
       <div className="route-left">
-        <img
-          src="rota1.png"
-          alt="Edirne Gezilecek Yerler"
-          className="main-image"
-        />
+        {/* Video öğesi */}
+        <video
+          src="rota1.mp4" // Videonuzun yolu
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="main-video" // Videonun stilini tanımlamak için class ekledik
+        ></video>
       </div>
       <div className="route-right">
         {/* Link bileşenini h2 etrafına ekleyin */}
-        <Link to="/our-routes" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <h2>Edirne İçin Gezi Rotaları</h2>
-        </Link>
+        <Link 
+  to="/our-routes" 
+  style={{ 
+    textDecoration: 'none', 
+    color: '#493628', 
+    fontFamily: 'Charmonman, serif', // Yazı tipi eklendi
+    marginLeft: '30px' // Yazıyı sola kaydır
+  }}
+>
+  <h2>Edirne İçin Gezi Rotaları</h2>
+</Link>
+
         <div className="route-images">
           {/* Rotanın altındaki içerikler */}
           <div className="route-card">
@@ -36,7 +49,7 @@ const TravelRoutes = () => {
             <img src="rota5.png" alt="Doğa Rotası" className="route-image" />
           </div>
           <div className="route-card">
-            <p className="route-title">Festival ve Etkinlik Rotası</p>
+            <p className="route-title">Etkinlik Rotası</p>
             <img src="rota6.png" alt="Festival ve Etkinlik Rotası" className="route-image" />
           </div>
         </div>
@@ -46,4 +59,3 @@ const TravelRoutes = () => {
 };
 
 export default TravelRoutes;
-

@@ -58,9 +58,9 @@ const AppBar = () => {
         <img src="/logo1.png" alt="Logo" style={{ height: '90px', marginLeft:'10px' }} />
       </div>
       <div style={{ display: 'flex', alignItems: 'center', flexGrow: 1, justifyContent: 'flex-end' }}>
-        <button onClick={() => handleButtonClick(0)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#714a38', color: 'white' }}>Anasayfa</button>
-        <button onClick={() => handleButtonClick(1)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#714a38', color: 'white' }}>Gezi Rotalarımız</button>
-        <button onClick={() => handleButtonClick(2)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#714a38', color: 'white' }}>Biz Kimiz?</button>
+        <button onClick={() => handleButtonClick(0)} style={{ marginLeft: '8px',marginRight:'10px', padding: '10px', borderRadius: '5px', backgroundColor: '#997c70', color: 'white' }}>Anasayfa</button>
+        <button onClick={() => handleButtonClick(1)} style={{ marginLeft: '8px',marginRight:'10px', padding: '10px', borderRadius: '5px', backgroundColor: '#997c70', color: 'white' }}>Gezi Rotalarımız</button>
+        <button onClick={() => handleButtonClick(2)} style={{ marginLeft: '8px',marginRight:'10px', padding: '10px', borderRadius: '5px', backgroundColor: '#997c70', color: 'white' }}>Biz Kimiz?</button>
         {isLoggedIn ? (
           <div style={{ display: 'flex', alignItems: 'center', marginLeft: '10px' }}>
             <button onClick={handleLogout} style={{ marginLeft: '10px', padding: '5px 10px', borderRadius: '5px', backgroundColor: '#714a38', color: 'white' }}>Çıkış Yap</button>
@@ -81,9 +81,32 @@ const AppBar = () => {
           </div>
         ) : (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <button onClick={() => handleButtonClick(3)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#5d2008', color: 'white' }}>Giriş Yap</button>
-            <button onClick={() => handleButtonClick(4)} style={{ marginLeft: '10px', padding: '10px', borderRadius: '5px', backgroundColor: '#5d2008', color: 'white' }}>Kayıt Ol</button>
-          </div>
+  <button 
+    onClick={() => handleButtonClick(3)} 
+    style={{ 
+      marginRight: '5px', // Sağ boşluğu azaltın
+      padding: '10px', 
+      borderRadius: '5px', 
+      backgroundColor: '#493628', 
+      color: 'white' 
+    }}
+  >
+    Giriş Yap
+  </button>
+  <button 
+    onClick={() => handleButtonClick(4)} 
+    style={{ 
+      marginLeft: '5px', // Sol boşluğu azaltın
+      padding: '10px', 
+      borderRadius: '5px', 
+      backgroundColor: '#493628', 
+      color: 'white' 
+    }}
+  >
+    Kayıt Ol
+  </button>
+</div>
+
         )}
       </div>
     </div>

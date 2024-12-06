@@ -34,10 +34,12 @@ const CustomSlider = () => {
   };
 
   const settings = {
-    dots: false,
+    dots: true, // Noktalar gösterilsin
     infinite: true,
     speed: 500,
-    slidesToShow: 5,  // 5 görseli aynı anda göster
+    autoplay: true, // Otomatik kaydırma
+    autoplaySpeed: 3000, // 3 saniyede bir kaydırma
+    slidesToShow: 5,
     slidesToScroll: 1,
     centerMode: true,
     centerPadding: '0px',
@@ -45,55 +47,25 @@ const CustomSlider = () => {
     responsive: [
       {
         breakpoint: 1440,
-        settings: { slidesToShow: 4 },  // Ekran 1440px'den küçükse 4 görsel göster
+        settings: { slidesToShow: 4 },
       },
       {
         breakpoint: 1024,
-        settings: { slidesToShow: 3 },  // Ekran 1024px'den küçükse 3 görsel göster
+        settings: { slidesToShow: 3 },
       },
       {
         breakpoint: 768,
-        settings: { slidesToShow: 2 },  // Ekran 768px'den küçükse 2 görsel göster
+        settings: { slidesToShow: 2 },
       },
       {
         breakpoint: 480,
-        settings: { slidesToShow: 1 },  // Ekran 480px'den küçükse 1 görsel göster
+        settings: { slidesToShow: 1 },
       },
     ],
   };
 
   return (
     <div style={{ position: 'relative', width: '100vw', backgroundColor: '#FFFFFF', padding: '20px' }}>
-      {/* Sol Ok Butonu */}
-      <button 
-        onClick={() => sliderRef.current.slickPrev()} 
-        style={{ 
-          position: 'absolute', 
-          top: '50%', 
-          left: '10px', 
-          transform: 'translateY(-50%)', 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center', 
-          backgroundColor: '#493628', 
-          color: 'white', 
-          border: 'none', 
-          borderRadius: '50%', 
-          width: '40px', 
-          height: '40px', 
-          fontSize: '18px', 
-          cursor: 'pointer',
-          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-          transition: 'opacity 0.3s ease',
-          opacity: 0.8,
-          lineHeight: 0
-        }}
-        onMouseEnter={(e) => e.target.style.opacity = 1}
-        onMouseLeave={(e) => e.target.style.opacity = 0.8}
-      >
-        &lt;
-      </button>
-
       <Slider ref={sliderRef} {...settings}>
         {sliderData.map((item) => (
           <div key={item.id} onClick={() => showModal(item)} style={{ cursor: 'pointer', margin: '10px 5px' }}>
@@ -111,52 +83,113 @@ const CustomSlider = () => {
         ))}
       </Slider>
 
-      {/* Sağ Ok Butonu */}
-      <button 
-        onClick={() => sliderRef.current.slickNext()} 
-        style={{ 
-          position: 'absolute', 
-          top: '50%', 
-          right: '10px', 
-          transform: 'translateY(-50%)', 
-          display: 'flex', 
-          alignItems: 'center', 
-          justifyContent: 'center', 
-          backgroundColor: '#493628', 
-          color: 'white', 
-          border: 'none', 
-          borderRadius: '50%', 
-          width: '40px', 
-          height: '40px', 
-          fontSize: '18px', 
-          cursor: 'pointer',
-          boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-          transition: 'opacity 0.3s ease',
-          opacity: 0.8,
-          lineHeight: 0
-        }}
-        onMouseEnter={(e) => e.target.style.opacity = 1}
-        onMouseLeave={(e) => e.target.style.opacity = 0.8}
-      >
-        &gt;
-      </button>
-
       {/* Modal Popup */}
       <Modal
         open={isModalVisible}
         footer={null}
-        width={'80%'}
+        width={'60%'}
         onCancel={handleCancel}
         closeIcon={null}
+        bodyStyle={{
+          backgroundColor: '#F6EFE9',
+          borderRadius: '20px',
+          padding: '20px',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+        }}
       >
-        <button onClick={handleCancel} style={{ background: 'none', border: 'none', cursor: 'pointer' }}>X</button>
-        <div style={{ display: 'flex', justifyContent: 'space-evenly' }}>
-          <img 
-            alt={selectedItem?.title} 
-            src={selectedItem?.image} 
-            style={{ width: '280px', borderRadius: '10px', height: '380px', paddingTop: '20px' }} 
-          />
-          <p style={{ maxWidth: 600 }}>{selectedItem?.description}</p>
+        {/* Kapatma butonu */}
+        <button 
+          onClick={handleCancel} 
+          style={{ 
+            position: 'absolute', 
+            top: '20px', 
+            right: '20px', 
+            backgroundColor: 'transparent', 
+            border: 'none', 
+            fontSize: '18px', 
+            cursor: 'pointer', 
+            color: '#493628' 
+          }}
+        >
+          ✕
+        </button>
+
+        {/* İçerik */}
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start', width: '100%' }}>
+          {/* Görsel Alanı */}
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <img
+              alt={selectedItem?.title}
+              src={selectedItem?.image}
+              style={{
+                width: '280px',
+                height: '380px',
+                borderRadius: '12px',
+                objectFit: 'cover',
+              }}
+            />
+            {/* Kalp ve Favorilere Ekle */}
+            <div 
+              style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '8px', 
+                marginTop: '10px', 
+                cursor: 'pointer',
+                transition: 'color 0.3s ease',
+              }}
+            >
+              {/* Kalp Simgesi */}
+              <span 
+                style={{ 
+                  fontSize: '24px', 
+                  color: '#685752', // Kalbin rengini burada ayarlıyoruz
+                }}
+              >
+                &#9829;
+              </span>
+              {/* Favorilere Ekle Metni */}
+              <span 
+                style={{ 
+                  fontSize: '16px', 
+                  fontWeight: '500', 
+                  color: '#997C70' 
+                }}
+              >
+                Favorilere Ekle
+              </span>
+            </div>
+          </div>
+
+          {/* Metin Alanı */}
+          <div
+            style={{
+              flex: 1,
+              backgroundColor: '#FDF8F4',
+              borderRadius: '10px',
+              padding: '15px',
+              boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+            }}
+          >
+            <h2 style={{ color: '#493628', marginBottom: '10px' }}>{selectedItem?.title}</h2>
+            <p style={{ color: '#493628', fontSize: '16px', lineHeight: '1.5' }}>{selectedItem?.description}</p>
+            <ul style={{ color: '#493628', fontSize: '14px', listStyle: 'none', padding: 0, marginTop: '20px' }}>
+              <li>
+                <span style={{ marginRight: '8px', fontWeight: 'bold' }}>📍</span>
+                Konum bilgileri
+              </li>
+              <li>
+                <span style={{ marginRight: '8px', fontWeight: 'bold' }}>⏰</span>
+                Ziyaret Saati
+              </li>
+              <li>
+                <span style={{ marginRight: '8px', fontWeight: 'bold' }}>💰</span>
+                Giriş ücreti.
+              </li>
+            </ul>
+          </div>
         </div>
       </Modal>
     </div>

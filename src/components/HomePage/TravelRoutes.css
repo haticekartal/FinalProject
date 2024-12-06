@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: flex-start; /* Üst hizalamak için */
   padding: 20px;
-  background-color: #B99470;
+  background-color: #AB886D;
 }
 
 .route-left .main-image {
@@ -51,4 +51,12 @@
   height: auto;
   object-fit: contain;
   border-radius: 8px;
+}
+.main-video {
+  width: 100%; /* Videoyu tam genişlikte gösterir */
+  height: auto; /* Oranını korur */
+  border-radius: 8px; /* İsteğe bağlı: Kenarları yuvarlatır */
+  object-fit: cover; /* Video oranını koruyarak kapsayıcıya sığdırır */
+  margin-top: 55px; /* Videoyu aşağıya almak için üst boşluk ekleyin */
+
 }

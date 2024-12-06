@@ -32,14 +32,16 @@ const AdminPanel = () => {
           display: 'flex',
           alignItems: 'center',
         }}>
-          <img src="/api/placeholder/48/48" alt="Profil Fotoğrafı" className="avatar" style={{
-            width: '48px',
-            height: '48px',
-            borderRadius: '50%',
-            marginRight: '8px',
-          }} />
+          <button onClick={() => navigate(-1)} style={{
+            background: 'none',
+            border: 'none',
+            cursor: 'pointer',
+            fontSize: '20px',
+            color: 'black',  // Geri tuşunun rengini siyah yapıyoruz
+          }}>←</button>
           <span className="username" style={{
             fontWeight: 'bold',
+            marginLeft: '8px',
           }}>Hatice Kartal</span>
         </div>
         
@@ -56,81 +58,81 @@ const AdminPanel = () => {
         gridTemplateColumns: 'repeat(2, 1fr)',
         gridGap: '16px',
       }}>
-      {/* Favori Yerler Kutusu */}
-<div
-  className="box"
-  onClick={() => navigate('/favorites')} // Burada yönlendirme yapılıyor
-  style={{
-    backgroundImage: 'url("/foto1.png")',
-    backgroundSize: 'cover', // Resmi kutuya sığdırır.
-    backgroundPosition: 'center', // Resmin ortalanmasını sağlar.
-    padding: '16px',
-    borderRadius: '4px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    cursor: 'pointer', // Tıklanabilir olduğunu belli etmek için cursor pointer
-    color: '#fff', // Yazı rengini okunaklı hale getirmek için beyaz yaptık.
-    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', // Yazının daha belirgin olması için gölge ekledik.
-  }}
->
-  ❤️ Favori Yerler
-</div>
+        {/* Favori Yerler Kutusu */}
+        <div
+          className="box"
+          onClick={() => navigate('/favorites')} // Burada yönlendirme yapılıyor
+          style={{
+            backgroundImage: 'url("/foto1.png")',
+            backgroundSize: 'cover', // Resmi kutuya sığdırır.
+            backgroundPosition: 'center', // Resmin ortalanmasını sağlar.
+            padding: '16px',
+            borderRadius: '4px',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            cursor: 'pointer', // Tıklanabilir olduğunu belli etmek için cursor pointer
+            color: '#fff', // Yazı rengini okunaklı hale getirmek için beyaz yaptık.
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)', // Yazının daha belirgin olması için gölge ekledik.
+          }}
+        >
+          ❤️ Favori Yerler
+        </div>
 
-{/* Kaydedilen Rotalar Kutusu */}
-<div
-  className="box"
-  onClick={() => navigate('/saved-routes')}
-  style={{
-    backgroundImage: 'url("/foto2.png")',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    padding: '16px',
-    borderRadius: '4px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    cursor: 'pointer',
-    color: '#fff',
-    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
-  }}
->
-  🔖 Kaydedilen Rotalar
-</div>
+        {/* Kaydedilen Rotalar Kutusu */}
+        <div
+          className="box"
+          onClick={() => navigate('/saved-routes')}
+          style={{
+            backgroundImage: 'url("/foto2.png")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            padding: '16px',
+            borderRadius: '4px',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            cursor: 'pointer',
+            color: '#fff',
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
+          }}
+        >
+          🔖 Kaydedilen Rotalar
+        </div>
 
-{/* Profil Ayarları Kutusu */}
-<div
-  className="box"
-  onClick={() => navigate('/profile-settings')}
-  style={{
-    backgroundImage: 'url("/foto3.png")',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    padding: '16px',
-    borderRadius: '4px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    cursor: 'pointer',
-    color: '#fff',
-    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
-  }}
->
-  ⚙️ Profil Ayarları
-</div>
+        {/* Profil Ayarları Kutusu */}
+        <div
+          className="box"
+          onClick={() => navigate('/profile-settings')}
+          style={{
+            backgroundImage: 'url("/foto3.png")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            padding: '16px',
+            borderRadius: '4px',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            cursor: 'pointer',
+            color: '#fff',
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
+          }}
+        >
+          ⚙️ Profil Ayarları
+        </div>
 
-{/* Yardım Kutusu */}
-<div
-  className="box"
-  onClick={() => navigate('/help')}
-  style={{
-    backgroundImage: 'url("/foto4.png")',
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-    padding: '16px',
-    borderRadius: '4px',
-    boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
-    cursor: 'pointer',
-    color: '#fff',
-    textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
-  }}
->
-  ❓ Yardım
-</div>
+        {/* Yardım Kutusu */}
+        <div
+          className="box"
+          onClick={() => navigate('/help')}
+          style={{
+            backgroundImage: 'url("/foto4.png")',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            padding: '16px',
+            borderRadius: '4px',
+            boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+            cursor: 'pointer',
+            color: '#fff',
+            textShadow: '1px 1px 2px rgba(0, 0, 0, 0.8)',
+          }}
+        >
+          ❓ Yardım
+        </div>
 
       </main>
 
